@@ -2123,7 +2123,7 @@ export const cards: Card[] = [
     thumbnailAfterUrl: 'https://static.wikia.nocookie.net/ensemble-stars/images/a/ab/%28Expressing_Gratitude_Through_Conviction%29_Souma_Kanzaki_M_Mini_Bloomed.png/revision/latest?cb=20251111110707',
     fullImageBeforeUrl: 'https://static.wikia.nocookie.net/ensemble-stars/images/3/38/%28Expressing_Gratitude_Through_Conviction%29_Souma_Kanzaki_CG.png/revision/latest?cb=20251111110656',
     fullImageAfterUrl: 'https://static.wikia.nocookie.net/ensemble-stars/images/8/86/%28Expressing_Gratitude_Through_Conviction%29_Souma_Kanzaki_CG2.png/revision/latest?cb=20251111110658',
-    quoteBefore: '여기까지가, 가 아니라 더욱더 앞을 향해야 하는구려',
+    quoteBefore: '여기까지가 아니라, 더욱더 앞을 향해야 하는구려',
     quoteAfter: '거듭해서 든든하게 단련해 나가겠소',
     quoteBeforeOriginal: 'ここまで、ではないもっと先へだな',
     quoteAfterOriginal: '幾重も頼もしく鍛えてゆくぞ',
