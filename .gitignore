@@ -24,3 +24,7 @@ dist-ssr
 *.sln
 *.sw?
 .claude/settings.local.json
+
+# 위키 스크래퍼 결과물 (scripts/scrape-wiki-cards.js)
+scripts/scraped-cards.json
+scripts/namu-quotes.json

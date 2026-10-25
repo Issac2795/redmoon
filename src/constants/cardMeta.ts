@@ -23,8 +23,10 @@ export const LABEL_ORDER: CardLabel[] = [
   '주년',
   'TRIP',
   'MainStory',
+  '스페셜',
   '해외한정',
   '! 통상',
+  '! 하코',
   '! 스카우트',
   '! 이벤트',
 ];

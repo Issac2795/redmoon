@@ -13,8 +13,10 @@ export type CardLabel =
   | '주년'
   | 'TRIP'
   | 'MainStory'
+  | '스페셜'
   // "!"로 시작하는 라벨은 앙상블 스타즈! 시절 카드로, 한꺼번에 묶어 관리한다
   | '! 통상'
+  | '! 하코'
   | '! 스카우트'
   | '! 이벤트';
 
@@ -43,7 +45,12 @@ export interface SupportSkill {
 }
 
 export interface Card {
-  /** `${characterId}-${rarity}-${label}-${releaseDate}` 형식. stage는 표시용 그룹핑 값이라 카드끼리 겹칠 수 있어 id에는 쓰지 않음 */
+  /**
+   * `${characterId}-${rarity}-${label}-${releaseDate}` 형식.
+   * stage는 표시용 그룹핑 값이라 카드끼리 겹칠 수 있어 id에는 쓰지 않는다.
+   * 같은 날 같은 라벨로 여러 장이 나온 경우(예: 앙스타! 초기 "! 통상" 3장)에만
+   * 뒤에 `-1`, `-2` 같은 일련번호가 붙는다.
+   */
   id: string;
   characterId: CharacterId;
   name: string;
