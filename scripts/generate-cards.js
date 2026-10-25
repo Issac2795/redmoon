@@ -78,6 +78,8 @@ const cards = rows.map((r) => {
     thumbnailAfterUrl: r['썸네일 이미지 - 개화 후'],
     fullImageBeforeUrl: r['전체 이미지 - 개화 전'],
     fullImageAfterUrl: r['전체 이미지 - 개화 후'],
+    cardImageBeforeUrl: r['카드 - 개화 전'],
+    cardImageAfterUrl: r['카드 - 개화 후'],
     quoteBefore: r['대사 - 개화 전'],
     quoteAfter: r['대사 - 개화 후'],
     quoteBeforeOriginal: r['대사(원문) - 개화 전'],
@@ -134,6 +136,8 @@ for (const c of cards) {
   for (const [key, value] of [
     ['fullImageBeforeUrl', c.fullImageBeforeUrl],
     ['fullImageAfterUrl', c.fullImageAfterUrl],
+    ['cardImageBeforeUrl', c.cardImageBeforeUrl],
+    ['cardImageAfterUrl', c.cardImageAfterUrl],
     ['quoteBefore', c.quoteBefore],
     ['quoteAfter', c.quoteAfter],
     ['quoteBeforeOriginal', c.quoteBeforeOriginal],

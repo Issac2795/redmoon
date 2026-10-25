@@ -18,7 +18,7 @@ export function SortModeToggle({ mode, onChange }: SortModeToggleProps) {
           key={option.value}
           type="button"
           onClick={() => onChange(option.value)}
-          className={`cursor-pointer rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+          className={`cursor-pointer rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap transition-colors ${
             mode === option.value
               ? 'bg-[var(--color-gold)] text-white'
               : 'text-[var(--color-text-sub)] hover:text-[var(--color-text)]'

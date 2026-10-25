@@ -58,7 +58,7 @@ export function FilterControls({
         type="button"
         aria-label="필터"
         onClick={() => setOpen((prev) => !prev)}
-        className="cursor-pointer rounded-full border border-[var(--color-brand)] px-3 py-1.5 text-sm font-medium text-[var(--color-brand)] hover:bg-[var(--color-brand)]/5"
+        className="cursor-pointer rounded-full border border-[var(--color-brand)] px-3 py-1.5 text-sm font-medium whitespace-nowrap text-[var(--color-brand)] hover:bg-[var(--color-brand)]/5"
       >
         필터
       </button>
@@ -66,7 +66,7 @@ export function FilterControls({
         type="button"
         aria-label="필터 리셋"
         onClick={() => onChange(createDefaultFilterState())}
-        className="cursor-pointer rounded-full border border-[var(--color-border)] px-3 py-1.5 text-sm font-medium text-[var(--color-text-sub)] hover:bg-[var(--color-bg)]"
+        className="cursor-pointer rounded-full border border-[var(--color-border)] px-3 py-1.5 text-sm font-medium whitespace-nowrap text-[var(--color-text-sub)] hover:bg-[var(--color-bg)]"
       >
         리셋
       </button>

@@ -61,13 +61,18 @@ export interface Card {
   stage: number | null;
   /** 'YYYY-MM-DD'. 통상처럼 특정 발매일이 없는 카드는 비어있을 수 있음 */
   releaseDate?: string;
-  /** 개화 전 썸네일 */
+  /**
+   * 이미지는 세 종류다.
+   * - 썸네일 이미지 : 목록용 작은 정사각 아이콘
+   * - 풀 이미지     : 가로로 긴 원화. 상세 모달에서 크게 보여준다
+   * - 카드 이미지   : 게임 안에서 보이는 세로 카드. 그리드의 "카드로 보기"에 쓴다
+   */
   thumbnailBeforeUrl: string;
-  /** 개화 후 썸네일 */
   thumbnailAfterUrl: string;
-  /** 상세 모달에서 쓰는 풀 일러스트. 아직 없는 카드가 많아 선택 항목 */
   fullImageBeforeUrl?: string;
   fullImageAfterUrl?: string;
+  cardImageBeforeUrl?: string;
+  cardImageAfterUrl?: string;
   /** 카드 대사(번역). 원문은 "원문" 체크 시 대신 보여준다 */
   quoteBefore?: string;
   quoteAfter?: string;

@@ -1,7 +1,8 @@
 import type { GridSection } from '../../lib/gridSections';
 import type { Card, Character } from '../../types/card';
-import type { BloomMode } from '../../components/card/BloomToggle';
+import type { BloomMode, BloomStage } from '../../components/card/bloom';
 import { CardCell } from '../../components/card/CardCell';
+import type { CardCellVariant } from '../../components/card/CardCell';
 
 interface CardGridProps {
   sections: GridSection[];
@@ -11,19 +12,37 @@ interface CardGridProps {
   showFullName: boolean;
   showDate: boolean;
   showSkill: boolean;
-  onSelectCard: (card: Card) => void;
+  onSelectCard: (card: Card, stage: BloomStage) => void;
+  variant: CardCellVariant;
 }
 
 /** 헤더와 섹션마다 별도로 그리는 미니 그리드들의 열 너비를 고정폭으로 맞춰 전체가 정렬되도록 함. 가장 긴 행 제목("MainStory 3차")이 겨우 들어가는 선에서 최대한 좁힘 */
 const LABEL_COLUMN_WIDTH = '120px';
 
-/** 한 캐릭터 칸에 카드가 몰릴 때 가로로 최대 2개씩만 배치하고 나머지는 아래줄로 내림 */
-function chunkPairs<T>(items: T[]): T[][] {
-  const pairs: T[][] = [];
-  for (let i = 0; i < items.length; i += 2) {
-    pairs.push(items.slice(i, i + 2));
+/**
+ * 카드 이미지는 세로로 길어 칸을 가득 채우면 한 캐릭터 칸에 2장이 들어갈 때마다 크기가 달라진다.
+ * 썸네일 칸과 같은 86px로 묶어, 카드가 몇 장이든 표의 열 너비와 카드 크기가 일정하게 유지된다.
+ */
+const CARD_WIDTH_CLASS: Record<CardCellVariant, Record<'single' | 'both', string>> = {
+  thumbnail: { single: '', both: '' },
+  card: { single: 'w-[86px]', both: 'w-[172px]' },
+};
+
+/**
+ * 한 캐릭터 칸에 카드가 몰릴 때 가로로 몇 장까지 둘지.
+ * 개화 전·후를 같이 켜면 카드 한 장이 두 배로 넓어져, 두 장을 나란히 두면 열을 넘친다.
+ */
+function cardsPerRow(bloomMode: BloomMode): number {
+  return bloomMode === 'both' ? 1 : 2;
+}
+
+/** 한 칸에 가로로 perRow개씩 배치하고 나머지는 아래줄로 내림 */
+function chunkCards<T>(items: T[], perRow: number): T[][] {
+  const rows: T[][] = [];
+  for (let i = 0; i < items.length; i += perRow) {
+    rows.push(items.slice(i, i + perRow));
   }
-  return pairs;
+  return rows;
 }
 
 export function CardGrid({
@@ -35,10 +54,15 @@ export function CardGrid({
   showDate,
   showSkill,
   onSelectCard,
+  variant,
 }: CardGridProps) {
   if (sections.length === 0) {
     return <p className="p-6 text-center text-sm text-[var(--color-text-sub)]">표시할 카드가 없습니다.</p>;
   }
+
+  const sizeKey = bloomMode === 'both' ? 'both' : 'single';
+  const widthClass = CARD_WIDTH_CLASS[variant][sizeKey];
+  const perRow = cardsPerRow(bloomMode);
 
   const columnTemplate = `${LABEL_COLUMN_WIDTH} repeat(${characters.length}, 1fr)`;
 
@@ -80,33 +104,38 @@ export function CardGrid({
                       className={`min-w-0 flex flex-col items-center justify-center gap-1 py-1 ${borderClass}`}
                     >
                       {cardsForChar.length === 0 ? (
-                        <CardCell
-                          card={null}
-                          character={characters[index]}
-                          bloomMode={bloomMode}
-                          showName={showName}
-                          showFullName={showFullName}
-                          showDate={showDate}
-                          showSkill={showSkill}
-                          onSelect={onSelectCard}
-                        />
+                        <div className={widthClass}>
+                          <CardCell
+                            card={null}
+                            character={characters[index]}
+                            bloomMode={bloomMode}
+                            showName={showName}
+                            showFullName={showFullName}
+                            showDate={showDate}
+                            showSkill={showSkill}
+                            onSelect={onSelectCard}
+                            variant={variant}
+                          />
+                        </div>
                       ) : (
-                        chunkPairs(cardsForChar).map((pair, pairIndex) => (
+                        chunkCards(cardsForChar, perRow).map((row2, rowIdx2) => (
                           // CardCell이 이미 이미지 양옆에 여백을 갖고 있어서 gap 없이도 카드가 붙어 보이지 않는다.
                           // items-start여야 카드명이 두 줄로 늘어나도 옆 카드의 썸네일이 아래로 밀리지 않는다.
-                          <div key={pairIndex} className="flex items-start justify-center">
-                            {pair.map((card) => (
-                              <CardCell
-                                key={card.id}
-                                card={card}
-                                character={characters[index]}
-                                bloomMode={bloomMode}
-                                showName={showName}
-                                showFullName={showFullName}
-                                showDate={showDate}
-                                showSkill={showSkill}
-                                onSelect={onSelectCard}
-                              />
+                          <div key={rowIdx2} className="flex items-start justify-center">
+                            {row2.map((card) => (
+                              <div key={card.id} className={widthClass}>
+                                <CardCell
+                                  card={card}
+                                  character={characters[index]}
+                                  bloomMode={bloomMode}
+                                  showName={showName}
+                                  showFullName={showFullName}
+                                  showDate={showDate}
+                                  showSkill={showSkill}
+                                  onSelect={onSelectCard}
+                                  variant={variant}
+                                />
+                              </div>
                             ))}
                           </div>
                         ))

@@ -3,8 +3,11 @@ import { redMoonCharacters as characters } from '../../data/characters';
 import { cards } from '../../data/cards';
 import { buildLabelSections, buildTimeSections } from '../../lib/gridSections';
 import { BloomToggle } from '../../components/card/BloomToggle';
-import type { BloomMode } from '../../components/card/BloomToggle';
+import type { BloomMode, BloomStage } from '../../components/card/bloom';
 import { CardDetailModal } from '../../components/card/CardDetailModal';
+import { CardViewToggle } from '../../components/card/CardViewToggle';
+import { StickyControlBar } from '../../components/card/StickyControlBar';
+import type { CardCellVariant } from '../../components/card/CardCell';
 import { CardGrid } from './CardGrid';
 import { CardListTabs } from './CardListTabs';
 import type { TabValue } from './CardListTabs';
@@ -28,7 +31,9 @@ export function CardListPage() {
     date: false,
     skill: false,
   });
-  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+  // 모달은 누른 쪽 그림으로 열어야 해서 카드와 개화 단계를 함께 들고 있는다
+  const [selected, setSelected] = useState<{ card: Card; stage: BloomStage } | null>(null);
+  const [variant, setVariant] = useState<CardCellVariant>('thumbnail');
   const { filter, setFilter } = useCardFilter();
 
   const sections = useMemo(() => {
@@ -54,14 +59,16 @@ export function CardListPage() {
     <div className="mx-auto max-w-4xl p-4">
       <CardListTabs active={activeTab} onChange={setActiveTab} />
 
-      <div className="mt-3 flex items-center justify-between">
+      <StickyControlBar>
         <DisplayToggle display={display} onChange={setDisplay} />
-        <div className="flex items-center gap-2">
+        {/* 좁은 화면에서는 버튼이 줄 밖으로 밀려나므로 이 묶음도 줄바꿈되게 둔다 */}
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <CardViewToggle variant={variant} onChange={setVariant} />
           <BloomToggle mode={bloomMode} onChange={setBloomMode} />
           <SortModeToggle mode={sortMode} onChange={setSortMode} />
           <FilterControls filter={filter} onChange={setFilter} showCategories={activeTab === 'All'} />
         </div>
-      </div>
+      </StickyControlBar>
 
       <div className="relative mt-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
         <img
@@ -77,18 +84,19 @@ export function CardListPage() {
           showFullName={display.fullName}
           showDate={display.date}
           showSkill={display.skill}
-          onSelectCard={setSelectedCard}
+          onSelectCard={(card, stage) => setSelected({ card, stage })}
+          variant={variant}
         />
       </div>
 
-      {selectedCard && (
+      {selected && (
         <CardDetailModal
-          card={selectedCard}
+          card={selected.card}
           characters={characters}
           cardOrder={orderedCards}
-          bloomMode={bloomMode}
-          onSelectCard={setSelectedCard}
-          onClose={() => setSelectedCard(null)}
+          initialStage={selected.stage}
+          onSelectCard={(card) => setSelected({ card, stage: selected.stage })}
+          onClose={() => setSelected(null)}
         />
       )}
     </div>

@@ -3,7 +3,7 @@ import { ATTRIBUTE_META, MAIN_STAT_META } from '../../constants/cardMeta';
 import { formatFullDate, formatSkillLabel } from '../../lib/formatCard';
 import { useEscapeKey } from '../../hooks/useEscapeKey';
 import type { Card, Character } from '../../types/card';
-import type { BloomMode } from './BloomToggle';
+import type { BloomStage } from './bloom';
 
 /** 개화 단계는 항상 두 칸을 그린다. 이미지가 없는 쪽은 숨기지 않고 비활성으로 둔다 */
 const BLOOM_LABELS = ['개화 전', '개화 후'] as const;
@@ -57,8 +57,8 @@ interface CardDetailModalProps {
   characters: Character[];
   /** 화면에 보이는 순서대로의 카드 목록. 이전/다음 이동에 쓴다 */
   cardOrder: Card[];
-  /** 목록에서 보고 있던 개화 상태. 모달을 열었을 때의 기본 단계가 된다 */
-  bloomMode: BloomMode;
+  /** 목록에서 누른 개화 단계. 모달을 열었을 때의 기본 단계가 된다 */
+  initialStage: BloomStage;
   onSelectCard: (card: Card) => void;
   onClose: () => void;
 }
@@ -67,11 +67,11 @@ export function CardDetailModal({
   card,
   characters,
   cardOrder,
-  bloomMode,
+  initialStage,
   onSelectCard,
   onClose,
 }: CardDetailModalProps) {
-  const [index, setIndex] = useState(() => resolveStage(card, bloomMode === 'before' ? 0 : 1));
+  const [index, setIndex] = useState(() => resolveStage(card, initialStage === 'before' ? 0 : 1));
   const [showOriginal, setShowOriginal] = useState(false);
 
   // 카드를 넘겨도 보고 있던 개화 단계를 유지한다. 그 단계에 일러스트가 없을 때만 반대쪽으로 넘어간다

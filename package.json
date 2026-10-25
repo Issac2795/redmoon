@@ -12,7 +12,8 @@
     "cards:dry": "node scripts/generate-cards.js --dry",
     "cards:check": "node scripts/check-card-ids.js",
     "cards:scrape": "node scripts/scrape-wiki-cards.js",
-    "cards:namu": "node scripts/scrape-namu-quotes.js"
+    "cards:namu": "node scripts/scrape-namu-quotes.js",
+    "cards:images": "node scripts/scrape-card-images.js"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.21",
