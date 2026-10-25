@@ -125,7 +125,7 @@ export const cards: Card[] = [
     fullImageBeforeUrl: 'https://static.wikia.nocookie.net/ensemble-stars/images/2/22/%28Earnest_Kindness%29_Keito_Hasumi_CG.png/revision/latest?cb=20230115020422',
     fullImageAfterUrl: 'https://static.wikia.nocookie.net/ensemble-stars/images/2/26/%28Earnest_Kindness%29_Keito_Hasumi_CG2.png/revision/latest?cb=20230115020423',
     quoteBefore: '잘 찍혔는지, 보여주었으면 한다',
-    quoteAfter: '그 시선을 사라잡아 보이겠다',
+    quoteAfter: '그 시선을 사로잡아 보이겠다',
     quoteBeforeOriginal: '上手く撮れたか、見せてほしい',
     quoteAfterOriginal: 'その視線を奪ってみせよう',
     attribute: 'Brilliant',
