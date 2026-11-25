@@ -14,14 +14,16 @@ export function OutfitCell({ outfit, open, onToggle }: OutfitCellProps) {
     <div className="flex min-w-0 flex-col items-center gap-1">
       {/*
         옷 그림은 대부분 세로로 긴 5:8 이지만, 자료가 부족한 옷은 16:9 스크린샷이 들어 있다.
-        object-cover + object-left 로 세로를 채우고 오른쪽만 잘라내, 왼쪽에 선 캐릭터가 남는다.
+        object-cover 로 세로를 채우고 가로를 잘라내되, 기준점을 왼쪽에서 12% 쯤으로 둔다.
+        왼쪽 끝(0%)에 맞추면 인물이 한쪽으로 치우치고, 더 오른쪽으로 가면 인물이 잘린다.
+        세로로 긴 그림은 잘리는 폭이 0.3% 뿐이라 이 값에 영향을 받지 않는다.
       */}
       {outfit.imageUrl ? (
         <img
           src={outfit.imageUrl}
           alt={outfit.name}
           loading="lazy"
-          className="aspect-[5/8] w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] object-cover object-left"
+          className="aspect-[5/8] w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] object-cover object-[12%_50%]"
         />
       ) : (
         <div className="flex aspect-[5/8] w-full items-center justify-center rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-bg)] px-2 text-center text-xs text-[var(--color-text-sub)]">

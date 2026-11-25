@@ -8,9 +8,9 @@ import { OutfitPage } from './pages/OutfitPage';
 const NAV_ITEMS = [
   { to: '/', label: '카드 구분' },
   { to: '/grid', label: '카드 그리드' },
+  { to: '/outfits', label: '옷장' },
   { to: '/calendar', label: '캘린더' },
   { to: '/timeline', label: '스토리 연표' },
-  { to: '/outfits', label: '옷장' },
 ];
 
 function App() {
