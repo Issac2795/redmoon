@@ -13,7 +13,10 @@
     "cards:check": "node scripts/check-card-ids.js",
     "cards:scrape": "node scripts/scrape-wiki-cards.js",
     "cards:namu": "node scripts/scrape-namu-quotes.js",
-    "cards:images": "node scripts/scrape-card-images.js"
+    "cards:images": "node scripts/scrape-card-images.js",
+    "outfits:scrape": "node scripts/scrape-outfits.js",
+    "outfits": "node scripts/generate-outfits.js",
+    "outfits:dry": "node scripts/generate-outfits.js --dry"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.21",

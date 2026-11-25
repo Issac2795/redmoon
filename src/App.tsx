@@ -3,12 +3,14 @@ import { CalendarPage } from './pages/CalendarPage';
 import { CardGridPage } from './pages/CardGridPage';
 import { CardListPage } from './pages/CardListPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
+import { OutfitPage } from './pages/OutfitPage';
 
 const NAV_ITEMS = [
   { to: '/', label: '카드 구분' },
   { to: '/grid', label: '카드 그리드' },
   { to: '/calendar', label: '캘린더' },
   { to: '/timeline', label: '스토리 연표' },
+  { to: '/outfits', label: '옷장' },
 ];
 
 function App() {
@@ -41,6 +43,7 @@ function App() {
           <Route path="/grid" element={<CardGridPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/timeline" element={<ComingSoonPage title="스토리 연표" />} />
+          <Route path="/outfits" element={<OutfitPage />} />
         </Routes>
       </main>
     </div>
